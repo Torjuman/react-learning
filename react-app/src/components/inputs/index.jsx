@@ -7,6 +7,7 @@ class Input extends React.Component {
         bio: '',
         birthday: '',
         gender: '',
+        skills: [],
         agree: false,
     }
     handleChange = event => {
@@ -15,9 +16,19 @@ class Input extends React.Component {
     handleCheckBox = event => {
         this.setState({agree: event.target.checked})
     }
+    handleSkillsChange = event => {
+        if (event.target.checked) {
+            this.setState({
+                skills: [...this.state.skills, event.target.value]
+            })
+        } else {
+            const newSkills = this.state.skills.filter(skill => skill !== event.target.value)
+            this.setState({skills: newSkills})
+        }
+    }
 
     render () {
-        const {name, country, bio, birthday, agree} = this.state
+        const {name, country, bio, birthday, agree, skills, } = this.state
 
         return (
             <div>
@@ -42,6 +53,20 @@ class Input extends React.Component {
                     <input type="radio" name="gender" value="Female" /> Female
 
                     <input type="radio" name="gender" value="Other" /> Other
+                </div>
+
+                <div>
+                    <p>Skills: </p>
+                    <br/>
+
+                    <input type="checkbox" name="skills" value="Java" checked={skills.includes("Java")}  onChange={this.handleSkillsChange} /> Java
+
+                    <input type="checkbox" name="skills" value="JavaScript" checked={skills.includes("JavaScript")}  onChange={this.handleSkillsChange} /> JavaScript
+
+                    <input type="checkbox" name="skills" value="Python" checked={skills.includes("Python")}  onChange={this.handleSkillsChange} /> Python
+
+                    <input type="checkbox" name="skills" value="Php" checked={skills.includes("Php")}  onChange={this.handleSkillsChange} /> Php
+                    
                 </div>
 
                 <div>
