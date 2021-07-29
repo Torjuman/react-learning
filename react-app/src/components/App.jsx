@@ -1,7 +1,8 @@
 import React from 'react';
 
 import classes from './app.module.css';
-import Input from './inputs/index';
+import UncontroledForm from './form/UncontroledForm';
+// import Input from './inputs/index';
 
 class App extends  React.Component {
 
@@ -10,7 +11,7 @@ class App extends  React.Component {
         return (
             <div className={classes.container}>
                 <h1>Simple Input Element !</h1>
-                <Input />
+                <UncontroledForm />
             </div>
         )
     }
