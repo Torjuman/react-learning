@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-var InputText = props => (
+const InputText = props => (
     <div className="form-group">
         <label htmlFor={props.name}>{props.label}</label>
         <input className="form-control" type={props.type} name={props.name} value={props.value} placeholder={props.placeholder} onChange={props.onChange} />
@@ -22,6 +22,24 @@ InputText.defaultProps = {
     type: "text",
     label: "",
     placeholder: "",
+}
+
+const Form = props => (
+    <form onSubmit={props.handleSubmit} >
+        <InputText name="name" label="Enter name" placeholder="Enter your name" value={props.values.name} onChange={props.handleChange} />
+
+        <InputText type="email" name="email" label="Enter email" placeholder="example@email.com" value={props.values.email} onChange={props.handleChange} />
+
+        <InputText type="password" name="password" label="Enter password" placeholder="*******" value={props.values.password} onChange={props.handleChange} />
+
+        <button type="submit">Submit</button>
+    </form>
+)
+
+Form.propTypes = {
+    values: PropTypes.object.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    handleChange: PropTypes.func.isRequired,
 }
 
 class SplitForm extends React.Component {
@@ -50,18 +68,9 @@ class SplitForm extends React.Component {
     }
 
     render () {
-        const {name, email, password} = this.state
         return (
             <div>
-                <form onSubmit={this.handleSubmit} >
-                    <InputText name="name" label="Enter name" placeholder="Enter your name" value={name} onChange={this.handleChange} />
-
-                    <InputText type="email" name="email" label="Enter email" placeholder="example@email.com" value={email} onChange={this.handleChange} />
-
-                    <InputText type="password" name="password" label="Enter password" placeholder="*******" value={password} onChange={this.handleChange} />
-
-                    <button type="submit">Submit</button>
-                </form>
+                <Form values={this.state} handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
             </div>
         )
     }
