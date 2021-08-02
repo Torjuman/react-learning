@@ -9,6 +9,16 @@ import SignUpForm from './sign-up-form';
 
 class App extends  React.Component {
 
+    state = {
+        users: []
+    }
+
+    createUser = user => {
+        user.id = new Date().getTime().toString()
+        this.setState({
+            users: [...this.state.users, user]
+        })
+    }
 
     render () {
         return (
@@ -18,7 +28,16 @@ class App extends  React.Component {
                 <UncontroledForm />
                 <ControledForm />
                 <SplitForm /> */}
-                <SignUpForm />
+                <SignUpForm createUser={this.createUser} />
+
+                <div >
+                    <h1 className="my-5">All registered users</h1>
+                    <ul className="list-group">
+                        {this.state.users.map(user => (
+                            <li key={user.id} className="list-group-item" >{user.name} --- {user.email}</li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         )
     }
