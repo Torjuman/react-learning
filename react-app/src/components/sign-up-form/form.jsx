@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import InputTextSign from './input-text';
 
-const Form = ({values, agreement, handleChange, handleAgreement, handleSubmit}) => {
+const Form = ({values, agreement, errors, handleChange, handleAgreement, handleSubmit}) => {
     return (
         <form onSubmit={handleSubmit}>
             <InputTextSign 
@@ -10,6 +10,7 @@ const Form = ({values, agreement, handleChange, handleAgreement, handleSubmit}) 
             label="Your Name"
             placeholder="Enter your name"
             value={values.name}
+            error={errors.name}
             onChange={handleChange} />
 
             <InputTextSign 
@@ -18,6 +19,7 @@ const Form = ({values, agreement, handleChange, handleAgreement, handleSubmit}) 
             label="Email"
             placeholder="example@email.com"
             value={values.email}
+            error={errors.email}
             onChange={handleChange} />
 
             <InputTextSign 
@@ -26,6 +28,7 @@ const Form = ({values, agreement, handleChange, handleAgreement, handleSubmit}) 
             label="Password"
             placeholder="******"
             value={values.password}
+            error={errors.password}
             onChange={handleChange} />
 
             <InputTextSign 
@@ -33,6 +36,7 @@ const Form = ({values, agreement, handleChange, handleAgreement, handleSubmit}) 
             type="date"
             label="Your BirthDate"
             value={values.birthDate}
+            error={errors.birthDate}
             onChange={handleChange} />
 
             <div className="form-group">
@@ -60,6 +64,10 @@ const Form = ({values, agreement, handleChange, handleAgreement, handleSubmit}) 
                     onChange={handleChange} />
                 </label> Other
 
+                <label >
+                    {errors.gender && <div className="invalid-feedback" >{errors.gender}</div> }
+                </label>
+
             </div>
 
             <div className="form-group">
@@ -84,6 +92,7 @@ const Form = ({values, agreement, handleChange, handleAgreement, handleSubmit}) 
 
 Form.propTypes = {
     values: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired,
     agreement: PropTypes.bool.isRequired,
     handleChange: PropTypes.func.isRequired,
     handleAgreement: PropTypes.func.isRequired,

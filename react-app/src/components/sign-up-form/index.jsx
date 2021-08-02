@@ -14,6 +14,7 @@ class SignUpForm extends React.Component {
     state = {
         values: initValues,
         agreement: false,
+        errors: {},
     }
 
     handleChange = event => {
@@ -31,10 +32,45 @@ class SignUpForm extends React.Component {
     }
     handleSubmit = event => {
         event.preventDefault()
-        console.log(this.state.values)
+        const {isValid, errors} = this.validation()
 
-        event.target.reset()
-        this.setState({values: initValues, agreement: false})
+        if (isValid) {
+            console.log(this.state.values)
+
+            event.target.reset()
+            this.setState({values: initValues, agreement: false, errors: {}})
+        } else {
+            this.setState({errors})
+        }
+
+    }
+
+    validation = () => {
+        const errors = {}
+        const {values: {name, email, password, birthDate, gender}} = this.state
+
+        if (!name) {
+            errors.name = 'Please provide your name'
+        }
+
+        if (!email) {
+            errors.email = 'Please provide your email'
+        }
+        if (!password) {
+            errors.password = 'Please provide a valid password'
+        }
+        if (!birthDate) {
+            errors.birthDate = 'Please provide your birth date'
+        }
+        if (!gender) {
+            errors.gender = 'Please select your gender'
+        }
+
+        return {
+            errors,
+            isValid: Object.keys(errors).length === 0
+        }
+
     }
 
     render () {
@@ -44,6 +80,7 @@ class SignUpForm extends React.Component {
                 <Form 
                 values={this.state.values} 
                 agreement={this.state.agreement} 
+                errors={this.state.errors}
                 handleChange={this.handleChange} 
                 handleAgreement={this.handleAgreement} 
                 handleSubmit={this.handleSubmit} />
